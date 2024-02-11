@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,300;1,400;1,500&display=swap"
+  rel="stylesheet">
 
 <head>
   <meta charset="UTF-8">
@@ -9,7 +14,46 @@
 </head>
 
 <body>
-  <h1>News</h1>
+  <header class="header">
+    <div class="header__content container">
+      <a href="#" class="header__logo logo">News Wave</a>
+      <button class="navbar__mobile-menu-button mobile-menu-button" id="mobileMenuButton">
+        <span class="mobile-menu-button__bar mobile-menu-button__top-bar"></span>
+        <span class="mobile-menu-button__bar mobile-menu-button__mid-bar"></span>
+        <span class="mobile-menu-button__bar mobile-menu-button__bottom-bar"></span>
+      </button>
+      <nav class="header__navbar navbar" id="headerNav">
+        <ul class="navbar__list" id="navbarList">
+          <li class="navbar__list-item"><a href="#" class="list-item__link">Home</a></li>
+          <li class="navbar__list-item"><a href="#" class="list-item__link">Politics</a></li>
+          <li class="navbar__list-item"><a href="#" class="list-item__link">Business</a></li>
+          <li class="navbar__list-item"><a href="#" class="list-item__link">Technology</a></li>
+          <li class="navbar__list-item"><a href="#" class="list-item__link">World</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <div class="main-content">
+    <main class="main container">
+      <h1>Header</h1>
+    </main>
+
+  </div>
+  <footer class="footer">
+    <div class="footer__content container">
+      <div class="footer__copyright copyright">
+        <a href="#" class="copyright__logo logo-small">News Wave</a>
+        <span class="copyright__text">© 2024 News Portal. All rights reserved.</span>
+      </div>
+
+      <nav class="footer__policy policy">
+        <ul class="policy__list">
+          <li class="policy__list-item"><a href="">Terms of Service</a></li>
+          <li class="policy__list-item"><a href="">Privacy Policy</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
 
   <script src="main.js"></script>
 </body>
