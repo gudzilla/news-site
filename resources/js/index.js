@@ -7,3 +7,63 @@ menuButton.addEventListener("click", function () {
   menuButton.classList.toggle("mobile-menu-button_active");
   headerNav.classList.toggle("navbar_mobile");
 });
+
+const mainNewsArticles = document.querySelector("#mainNewsArticles");
+
+function createDomElementWithClasses(htmlTag, ...CSSclasses) {
+  const newElem = document.createElement(htmlTag);
+  newElem.classList.add(...CSSclasses);
+  return newElem;
+}
+
+function truncateText(string, sliceIndex) {
+  let newStr;
+  console.log("Length: ", string.length);
+  if (string.length < sliceIndex) {
+    console.log("St");
+    return string;
+  }
+  let endOfWord = string.slice(sliceIndex, string.length + 1).indexOf(" ");
+  newStr = string.slice(0, sliceIndex + endOfWord).trim() + "...";
+  return newStr;
+}
+
+function renderNewsCard(newsArticle) {
+  const newsCard = createDomElementWithClasses("div", "articles__news-card", "news-card");
+  const articleHeader = createDomElementWithClasses("h2", "news-card__header");
+  articleHeader.innerText = newsArticle.title;
+  const articleImage = createDomElementWithClasses("img", "news-card__image");
+  if (newsArticle.urlToImage) {
+    articleImage.src = newsArticle.urlToImage;
+  } else {
+    articleImage.src = "/resources/images/no-image-dark.png";
+  }
+  const articleDescription = createDomElementWithClasses("p", "news-card__description");
+  console.log(newsArticle.description);
+  articleDescription.innerText = newsArticle.description;
+
+  const articleButton = createDomElementWithClasses("button", "news-card__button");
+  articleButton.innerText = "Read More";
+
+  newsCard.append(articleHeader);
+  newsCard.append(articleImage);
+  newsCard.append(articleDescription);
+  newsCard.append(articleButton);
+  mainNewsArticles.append(newsCard);
+}
+
+const newsApi = new NewsApi();
+
+async function loadMainPage() {
+  let i = 0;
+  const response = await newsApi.getTopHeadlines({ category: "general", country: "us" });
+  console.log(response);
+  for (const newsArticle of response.articles) {
+    // if (newsArticle.title !== "[Removed]" && newsArticle.description !== null) {
+    if (newsArticle.title !== "[Removed]") {
+      renderNewsCard(newsArticle);
+    }
+  }
+}
+
+loadMainPage();

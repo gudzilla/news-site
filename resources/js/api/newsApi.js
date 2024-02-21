@@ -41,7 +41,7 @@ export class NewsApi extends BaseRequest {
    * @param {string} [param0.country="gb"]
    * @param {number} [param0.pageSize=21]
    */
-  constructor({ country = "gb", pageSize = 30 } = {}) {
+  constructor({ country = "gb", pageSize = 24 } = {}) {
     super({ baseUrl: "https://newsapi.org/v2" });
     this.#defaultCountry = country;
     this.#defaultParams = {
@@ -78,6 +78,8 @@ export class NewsApi extends BaseRequest {
    * @param params.category {String} Possible options: business, entertainment, general, health, science, sports, technology
    * @param params.language {String} Sources that display news in a specific language
    * @param params.country {String} Sources that display news in a specific country
+   * @param params.q {String} Query to search
+   * @param params.pageSize {Number} Custom pageSize (default: 20)
    * @returns {Promise<GetNewsSourcesResponse>}
    */
   async getNewsSources(params) {
@@ -96,7 +98,7 @@ export class NewsApi extends BaseRequest {
   /**q
    * @async
    * @param params {Object} Parameters for news search
-   * @param params.search {String} Query to search
+   * @param params.q {String} Query to search
    * @param params.searchIn {String} Options: title, description, content
    * @param params.sources {String} Id of a news source
    * @param params.language {String} Language for news search
