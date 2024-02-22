@@ -46,10 +46,9 @@ const newsApi = new NewsApi();
 
 async function loadMainPage() {
   let i = 0;
-  const response = await newsApi.getSearchResult({ q: "книги", language: "ru", pageSize: 40, page: 1 });
+  const response = await newsApi.getTopHeadlines({ country: "us", category: "technology", page: 1 });
   console.log(response);
   for (const newsArticle of response.articles) {
-    // if (newsArticle.title !== "[Removed]" && newsArticle.description !== null) {
     if (newsArticle.title !== "[Removed]") {
       renderNewsCard(newsArticle);
     }
