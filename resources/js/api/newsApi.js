@@ -41,7 +41,7 @@ export class NewsApi extends BaseRequest {
    * @param {string} [param0.country="gb"]
    * @param {number} [param0.pageSize=21]
    */
-  constructor({ country = "gb", pageSize = 24 } = {}) {
+  constructor({ country = "gb", pageSize = 30 } = {}) {
     super({ baseUrl: "https://newsapi.org/v2" });
     this.#defaultCountry = country;
     this.#defaultParams = {

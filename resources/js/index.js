@@ -16,18 +16,6 @@ function createDomElementWithClasses(htmlTag, ...CSSclasses) {
   return newElem;
 }
 
-function truncateText(string, sliceIndex) {
-  let newStr;
-  console.log("Length: ", string.length);
-  if (string.length < sliceIndex) {
-    console.log("St");
-    return string;
-  }
-  let endOfWord = string.slice(sliceIndex, string.length + 1).indexOf(" ");
-  newStr = string.slice(0, sliceIndex + endOfWord).trim() + "...";
-  return newStr;
-}
-
 function renderNewsCard(newsArticle) {
   const newsCard = createDomElementWithClasses("div", "articles__news-card", "news-card");
   const articleHeader = createDomElementWithClasses("h2", "news-card__header");
@@ -38,6 +26,8 @@ function renderNewsCard(newsArticle) {
   } else {
     articleImage.src = "/resources/images/no-image-dark.png";
   }
+  articleImage.setAttribute("onerror", "this.src='/resources/images/no-image-dark.png'");
+  articleImage.setAttribute("alt", "News article picture");
   const articleDescription = createDomElementWithClasses("p", "news-card__description");
   console.log(newsArticle.description);
   articleDescription.innerText = newsArticle.description;
@@ -56,7 +46,7 @@ const newsApi = new NewsApi();
 
 async function loadMainPage() {
   let i = 0;
-  const response = await newsApi.getTopHeadlines({ category: "general", country: "us" });
+  const response = await newsApi.getSearchResult({ q: "книги", language: "ru", pageSize: 40, page: 1 });
   console.log(response);
   for (const newsArticle of response.articles) {
     // if (newsArticle.title !== "[Removed]" && newsArticle.description !== null) {
