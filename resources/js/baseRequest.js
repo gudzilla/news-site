@@ -1,5 +1,3 @@
-import { toObject } from "./toObject.js";
-
 export class BaseRequest {
   #baseUrl;
   #defaultHeaders;
@@ -13,9 +11,17 @@ export class BaseRequest {
     return headers.get("content-type").includes(contentType);
   }
 
+  #toObject(headers) {
+    const newObj = {};
+    for (const [key, value] of headers.entries()) {
+      newObj[key] = value;
+    }
+    return newObj;
+  }
+
   #prepairQueryString(params) {
-    let queryString2 = new URLSearchParams(params);
-    return "?" + queryString2.toString();
+    const queryString = new URLSearchParams(params);
+    return "?" + queryString.toString();
   }
 
   #request({ url, method = "get", params = {}, headers = {} }) {
@@ -40,18 +46,10 @@ export class BaseRequest {
     const responseData = {
       ok: response.ok,
       status: response.status,
-      headers: toObject(response.headers.entries()),
+      headers: this.#toObject(response.headers),
       body,
     };
 
     return responseData;
   }
-
-  post() {}
-
-  delete() {}
-
-  patch() {}
-
-  put() {}
 }

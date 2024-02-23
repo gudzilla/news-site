@@ -119,6 +119,3 @@ export class NewsApi extends BaseRequest {
     return request.body;
   }
 }
-
-const newsApi = new NewsApi();
-newsApi.getTopHeadlines({ coutry: "us", category: "general" }).then((response) => console.log(response));
