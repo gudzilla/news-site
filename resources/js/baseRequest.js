@@ -1,3 +1,5 @@
+import { toObject } from "./toObject.js";
+
 export class BaseRequest {
   #baseUrl;
   #defaultHeaders;
@@ -7,15 +9,13 @@ export class BaseRequest {
     this.#defaultHeaders = headers;
   }
 
+  #contentIs(headers, contentType) {
+    return headers.get("content-type").includes(contentType);
+  }
+
   #prepairQueryString(params) {
-    let queryString = "";
-
-    for (const [key, value] of Object.entries(params)) {
-      queryString += queryString === "" ? "?" : "&";
-      queryString += `${key}=${value}`;
-    }
-
-    return queryString;
+    let queryString2 = new URLSearchParams(params);
+    return "?" + queryString2.toString();
   }
 
   #request({ url, method = "get", params = {}, headers = {} }) {
@@ -26,32 +26,23 @@ export class BaseRequest {
 
     const queryString = this.#prepairQueryString(params);
 
-    const promise = fetch(`${this.#baseUrl}${url}${queryString}`, {
+    return fetch(`${this.#baseUrl}${url}${queryString}`, {
       method,
       headers: requestHeaders,
     });
-
-    return promise;
   }
 
   async get(url, { params, headers } = {}) {
     const response = await this.#request({ url, params, headers });
-    const responseData = {};
 
-    responseData.ok = response.ok;
-    responseData.status = response.status;
+    const body = this.#contentIs(response.headers, "application/json") ? await response.json() : await response.text();
 
-    responseData.headers = {};
-    for (const [key, value] of response.headers.entries()) {
-      responseData.headers[key] = value;
-    }
-
-    if (response.headers.get("content-type").includes("application/json")) {
-      console.log("Request response is JSON.");
-      responseData.body = await response.json();
-    } else {
-      console.log("Request response is NOT JSON!");
-    }
+    const responseData = {
+      ok: response.ok,
+      status: response.status,
+      headers: toObject(response.headers.entries()),
+      body,
+    };
 
     return responseData;
   }

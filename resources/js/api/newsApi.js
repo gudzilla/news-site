@@ -15,7 +15,7 @@ import { BaseRequest } from "../baseRequest.js";
  */
 
 /**
- * @typedef Sources
+ * @typedef Source
  * @property {string} category
  * @property {string} country
  * @property {string} description
@@ -27,7 +27,7 @@ import { BaseRequest } from "../baseRequest.js";
 
 /**
  * @typedef GetNewsSourcesResponse
- * @property {Sources[]} sources
+ * @property {Source[]} sources
  */
 
 export class NewsApi extends BaseRequest {
@@ -119,3 +119,6 @@ export class NewsApi extends BaseRequest {
     return request.body;
   }
 }
+
+const newsApi = new NewsApi();
+newsApi.getTopHeadlines({ coutry: "us", category: "general" }).then((response) => console.log(response));
