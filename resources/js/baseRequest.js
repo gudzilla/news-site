@@ -7,15 +7,21 @@ export class BaseRequest {
     this.#defaultHeaders = headers;
   }
 
-  #prepairQueryString(params) {
-    let queryString = "";
+  #contentIs(headers, contentType) {
+    return headers.get("content-type").includes(contentType);
+  }
 
-    for (const [key, value] of Object.entries(params)) {
-      queryString += queryString === "" ? "?" : "&";
-      queryString += `${key}=${value}`;
+  #toObject(headers) {
+    const newObj = {};
+    for (const [key, value] of headers.entries()) {
+      newObj[key] = value;
     }
+    return newObj;
+  }
 
-    return queryString;
+  #prepairQueryString(params) {
+    const queryString = new URLSearchParams(params);
+    return "?" + queryString.toString();
   }
 
   #request({ url, method = "get", params = {}, headers = {} }) {
@@ -26,41 +32,24 @@ export class BaseRequest {
 
     const queryString = this.#prepairQueryString(params);
 
-    const promise = fetch(`${this.#baseUrl}${url}${queryString}`, {
+    return fetch(`${this.#baseUrl}${url}${queryString}`, {
       method,
       headers: requestHeaders,
     });
-
-    return promise;
   }
 
   async get(url, { params, headers } = {}) {
     const response = await this.#request({ url, params, headers });
-    const responseData = {};
 
-    responseData.ok = response.ok;
-    responseData.status = response.status;
+    const body = this.#contentIs(response.headers, "application/json") ? await response.json() : await response.text();
 
-    responseData.headers = {};
-    for (const [key, value] of response.headers.entries()) {
-      responseData.headers[key] = value;
-    }
-
-    if (response.headers.get("content-type").includes("application/json")) {
-      console.log("Request response is JSON.");
-      responseData.body = await response.json();
-    } else {
-      console.log("Request response is NOT JSON!");
-    }
+    const responseData = {
+      ok: response.ok,
+      status: response.status,
+      headers: this.#toObject(response.headers),
+      body,
+    };
 
     return responseData;
   }
-
-  post() {}
-
-  delete() {}
-
-  patch() {}
-
-  put() {}
 }
