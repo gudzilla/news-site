@@ -1,3 +1,5 @@
+import { NewsApi } from "./api/newsApi.js";
+
 const menuButton = document.querySelector("#mobileMenuButton");
 const headerNav = document.querySelector("#headerNav");
 
