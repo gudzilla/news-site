@@ -22,7 +22,6 @@
 body {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
-  /* line-height: var(--line-height); */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -212,15 +211,9 @@ list-item__link:active {
   width: 100%;
 }
 
-.main-news {
-}
-
 .main-news__header {
   font-size: 1.5rem;
   margin-bottom: 20px;
-}
-
-.main-news__articles {
 }
 
 .articles {
