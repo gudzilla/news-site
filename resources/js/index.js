@@ -24,18 +24,10 @@ function createDomElement(htmlTag, options) {
     newElem.innerText = innerText;
   }
 
-  if (Object.keys(attributes).length) {
-    for (const [key, value] of Object.entries(attributes)) {
-      newElem.setAttribute(key, value);
-    }
+  for (const [key, value] of Object.entries(attributes)) {
+    newElem.setAttribute(key, value);
   }
 
-  return newElem;
-}
-
-function createDomElementWithClasses(htmlTag, ...CSSclasses) {
-  const newElem = document.createElement(htmlTag);
-  newElem.classList.add(...CSSclasses);
   return newElem;
 }
 
@@ -50,9 +42,8 @@ function renderNewsCard(newsArticle) {
 
   const articleImage = createDomElement("img", {
     classNames: ["news-card__image"],
-    attributes: { onerror: `this.src='${DEFAULT_IMAGE}"'`, alt: "News article picture" },
+    attributes: { onerror: `this.src='${DEFAULT_IMAGE}"'`, alt: "News article picture", src: newsArticle.urlToImage || DEFAULT_IMAGE },
   });
-  articleImage.src = newsArticle.urlToImage || DEFAULT_IMAGE;
 
   const articleDescription = createDomElement("p", {
     classNames: ["news-card__description"],
@@ -67,14 +58,14 @@ function renderNewsCard(newsArticle) {
   return newsCard;
 }
 
-const skipEmptyArticles = (article) => article.title !== "[Removed]";
+const skipEmptyArticles = (article) => article !== "[Removed]";
 
 const newsApi = new NewsApi();
 
 async function loadMainPage() {
   const response = await newsApi.getTopHeadlines({
-    country: "gb",
-    category: "health",
+    country: "us",
+    category: "general",
     page: 1,
   });
   const { articles } = response;
