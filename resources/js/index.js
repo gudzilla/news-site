@@ -5,13 +5,20 @@ const DEFAULT_IMAGE = "/resources/images/no-image-dark.png";
 const menuButton = document.querySelector("#mobileMenuButton");
 const headerNav = document.querySelector("#headerNav");
 
-menuButton.addEventListener("click", function () {
-  menuButton.classList.toggle("mobile-menu-button_active");
-  headerNav.classList.toggle("navbar_mobile");
+menuButton?.addEventListener("click", function () {
+  menuButton?.classList.toggle("mobile-menu-button_active");
+  headerNav?.classList.toggle("navbar_mobile");
 });
 
 const mainNewsArticles = document.querySelector("#mainNewsArticles");
-
+/**
+ * @param {string} htmlTag - HTML tag to create
+ * @param {Object} options
+ * @param {string[]} [options.classNames]
+ * @param {Object.<string, string>} [options.attributes]
+ * @param {?string} [options.innerText]
+ * @returns {HTMLElement}
+ */
 function createDomElement(htmlTag, options) {
   const { classNames = [], attributes = {}, innerText } = options;
   const newElem = document.createElement(htmlTag);
@@ -30,7 +37,10 @@ function createDomElement(htmlTag, options) {
 
   return newElem;
 }
-
+/**
+ * @param {import('./api/newsApi.js').Article} newsArticle
+ * @returns {HTMLElement}
+ */
 function renderNewsCard(newsArticle) {
   const newsCard = createDomElement("div", {
     classNames: ["articles__news-card", "news-card"],
@@ -57,8 +67,11 @@ function renderNewsCard(newsArticle) {
   newsCard.append(articleHeader, articleImage, articleDescription, articleButton);
   return newsCard;
 }
-
-const skipEmptyArticles = (article) => article !== "[Removed]";
+/**
+ * @param {import('./api/newsApi.js').Article} article
+ * @returns {boolean}
+ */
+const skipEmptyArticles = (article) => article.title !== "[Removed]";
 
 const newsApi = new NewsApi();
 
@@ -71,7 +84,7 @@ async function loadMainPage() {
   const { articles } = response;
   const cards = articles.filter(skipEmptyArticles).map(renderNewsCard);
 
-  mainNewsArticles.append(...cards);
+  mainNewsArticles?.append(...cards);
 }
 
 loadMainPage();

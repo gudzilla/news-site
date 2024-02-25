@@ -3,6 +3,7 @@ import { BaseRequest } from "../baseRequest.js";
  * @typedef Article
  * @property {string} author
  * @property {?string} content
+ * @property {?string} description
  * @property {string} title
  * @property {string} url
  * @property {?string} urlToImage
@@ -36,12 +37,11 @@ export class NewsApi extends BaseRequest {
   #defaultCountry;
   #defaultParams;
   /**
-   * @constructor
-   * @param {{ country?: string; pageSize?: number; }} [param0={}]
-   * @param {string} [param0.country="gb"]
-   * @param {number} [param0.pageSize=21]
+   * @param {Object} [param0 = {}]
+   * @param {string} [param0.country = "us"]
+   * @param {number} [param0.pageSize = 30]
    */
-  constructor({ country = "gb", pageSize = 30 } = {}) {
+  constructor({ country = "us", pageSize = 30 } = {}) {
     super({ baseUrl: "https://newsapi.org/v2" });
     this.#defaultCountry = country;
     this.#defaultParams = {
@@ -52,11 +52,12 @@ export class NewsApi extends BaseRequest {
 
   /**
    * @async
-   * @param params {Object} Parameters for news
-   * @param params.country {String} Country to search news for
-   * @param params.category {String} Category to search
-   * @param params.search {String} Query to search
-   * @param params.pageSize {Number} Custom pageSize (default: 20)
+   * @param {Object} params Parameters for news
+   * @param {String} params.country Country to search news for
+   * @param {String} params.category Category to search
+   * @param {String} [params.search] Query to search
+   * @param {Number} [params.pageSize] Custom pageSize (default: 20)
+   * @param {Number} [params.page] Page number
    * @returns {Promise<GetSearchResultResponse>}
    */
   async getTopHeadlines(params) {
@@ -67,6 +68,9 @@ export class NewsApi extends BaseRequest {
       },
     };
 
+    /**
+     * @type {import('../baseRequest.js').ResponseData<GetSearchResultResponse>}
+     */
     const request = await this.get("/top-headlines", requestParams);
 
     return request.body;
@@ -74,12 +78,12 @@ export class NewsApi extends BaseRequest {
 
   /**
    * @async
-   * @param params {Object} Parameters for news-sources
-   * @param params.category {String} Possible options: business, entertainment, general, health, science, sports, technology
-   * @param params.language {String} Sources that display news in a specific language
-   * @param params.country {String} Sources that display news in a specific country
-   * @param params.q {String} Query to search
-   * @param params.pageSize {Number} Custom pageSize (default: 20)
+   * @param {Object} params Parameters for news-sources
+   * @param {String} params.category Possible options: business, entertainment, general, health, science, sports, technology
+   * @param {String} params.language Sources that display news in a specific language
+   * @param {String} params.country Sources that display news in a specific country
+   * @param {String} params.q Query to search
+   * @param {Number} params.pageSize Custom pageSize (default: 20)
    * @returns {Promise<GetNewsSourcesResponse>}
    */
   async getNewsSources(params) {
@@ -97,15 +101,15 @@ export class NewsApi extends BaseRequest {
 
   /**q
    * @async
-   * @param params {Object} Parameters for news search
-   * @param params.q {String} Query to search
-   * @param params.searchIn {String} Options: title, description, content
-   * @param params.sources {String} Id of a news source
-   * @param params.language {String} Language for news search
-   * @param params.sortBy {String} Options: relevancy, popularity, publishedAt
-   * @param params.from {String} Time for the Oldest article allowed. (e.g. 2024-02-10 or 2024-02-10T15:42:50)
-   * @param params.to {String} Time for the newest article allowed (e.g. 2024-02-10 or 2024-02-10T15:42:50)
-   * @param params.pageSize {Number} Custom pageSize (default: 20)
+   * @param {Object} params Parameters for news search
+   * @param {String} params.q  Query to search
+   * @param {String} params.searchIn  Options: title, description, content
+   * @param {String} params.sources  Id of a news source
+   * @param {String} params.language  Language for news search
+   * @param {String} params.sortBy  Options: relevancy, popularity, publishedAt
+   * @param {String} params.from  Time for the Oldest article allowed. (e.g. 2024-02-10 or 2024-02-10T15:42:50)
+   * @param {String} params.to  Time for the newest article allowed (e.g. 2024-02-10 or 2024-02-10T15:42:50)
+   * @param {Number} params.pageSize Custom pageSize (default: 30)
    * @returns {Promise<GetSearchResultResponse>}
    */
   async getSearchResult(params) {
@@ -117,7 +121,6 @@ export class NewsApi extends BaseRequest {
     };
 
     const request = await this.get("/everything", requestParams);
-
     return request.body;
   }
 }
