@@ -12,12 +12,13 @@ menuButton?.addEventListener("click", function () {
 
 const mainNewsArticles = document.querySelector("#mainNewsArticles");
 /**
- * @param {string} htmlTag - HTML tag to create
+ * @template {keyof HTMLElementTagNameMap} T
+ * @param {T} htmlTag - HTML tag to create
  * @param {Object} options
  * @param {string[]} [options.classNames]
  * @param {Object.<string, string>} [options.attributes]
  * @param {?string} [options.innerText]
- * @returns {HTMLElement}
+ * @returns {HTMLElementTagNameMap[T]}
  */
 function createDomElement(htmlTag, options) {
   const { classNames = [], attributes = {}, innerText } = options;
@@ -39,7 +40,7 @@ function createDomElement(htmlTag, options) {
 }
 /**
  * @param {import('./api/newsApi.js').Article} newsArticle
- * @returns {HTMLElement}
+ * @returns {HTMLDivElement}
  */
 function renderNewsCard(newsArticle) {
   const newsCard = createDomElement("div", {
