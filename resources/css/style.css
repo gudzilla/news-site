@@ -32,10 +32,6 @@ a {
   color: inherit;
 }
 
-.main-content {
-  padding-top: 56px;
-}
-
 .container {
   max-width: 1400px;
   margin-left: auto;
@@ -44,6 +40,7 @@ a {
   padding-right: 16px;
 }
 
+/* ------------------ HEADER ------------- */
 .header {
   background-color: var(--secondary-color);
   height: 56px;
@@ -99,32 +96,36 @@ a {
   height: 100%;
 }
 
-.navbar__list {
-  height: 100%;
-  list-style-type: none;
-  display: flex;
-}
-
-.navbar__list-item {
-  height: 100%;
+.category {
   display: flex;
   align-items: center;
+  height: 100%;
 }
 
-.list-item__link {
+.category__label {
+  font-size: 1.25rem;
   display: flex;
   align-items: center;
   height: 100%;
   text-align: center;
-  padding: 0 20px;
+  padding: 0 12px;
+  cursor: pointer;
+}
+.category input[type="radio"]:checked + label {
+  background-color: rgba(var(--light-grey-color), 0.2);
 }
 
-.list-item__link:hover {
+.category__input {
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.category__label:hover {
   text-decoration: underline;
 }
-
-list-item__link:active {
-  opacity: 0.7;
+.category__label:active {
+  opacity: 0.6;
 }
 
 .navbar__mobile-menu-button {
@@ -145,8 +146,8 @@ list-item__link:active {
   background: var(--light-color);
 }
 
-/* MOBILE HEADER MENU */
-@media screen and (max-width: 850px) {
+/* ------------------ MOBILE HEADER MENU ------------- */
+@media screen and (max-width: 970px) {
   .navbar {
     display: none;
   }
@@ -167,7 +168,7 @@ list-item__link:active {
     align-items: center;
   }
 
-  .navbar_mobile .navbar__list {
+  .navbar_mobile .category {
     padding-top: 56px;
     display: flex;
     flex-direction: column;
@@ -175,15 +176,13 @@ list-item__link:active {
     width: 100%;
   }
 
-  .navbar_mobile .navbar__list-item {
-    width: 100%;
+  .navbar_mobile .category__label {
+    width: 50%;
     height: 56px;
+    font-size: 2.5rem;
     display: flex;
     justify-content: center;
-  }
-
-  .navbar_mobile .list-item-link {
-    width: 100%;
+    margin-bottom: 12px;
   }
 
   .mobile-menu-button {
@@ -191,29 +190,63 @@ list-item__link:active {
     z-index: 99;
   }
 
-  .mobile-menu-button_active .mobile-menu-button__mid-bar {
+  .mobile-menu-button_active .mobile-menu-button__bar:nth-child(2) {
     opacity: 0;
   }
 
-  .mobile-menu-button_active .mobile-menu-button__top-bar {
+  .mobile-menu-button_active .mobile-menu-button__bar:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
   }
 
-  .mobile-menu-button_active .mobile-menu-button__bottom-bar {
+  .mobile-menu-button_active .mobile-menu-button__bar:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
   }
 }
 
-/* MAIN */
+/* ------------------ MAIN ------------- */
+
+.main-content {
+  padding-top: 56px;
+}
+
 .main {
   padding-top: 1.375rem;
   padding-bottom: 1.375rem;
   width: 100%;
 }
 
-.main-news__header {
-  font-size: 1.5rem;
+.main-news__news-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
+}
+
+@media screen and (max-width: 700px) {
+  .main-news__news-info {
+    flex-direction: column;
+    align-items: start;
+  }
+  .news-info__header {
+    margin-bottom: 6px;
+  }
+}
+
+.news-info__header {
+  font-size: 1.625rem;
+}
+
+.choose-country__label {
+  font-size: 1.125rem;
+  margin-right: 4px;
+}
+
+.choose-country__select {
+  border-radius: 4px;
+  padding: 4px 6px;
+  border: none;
+  background: rgba(var(--border-color-base), 0.99);
+  font-size: 1.125rem;
 }
 
 .articles {
@@ -269,7 +302,7 @@ list-item__link:active {
   -webkit-box-orient: vertical;
 }
 
-.news-card__button {
+.news-card__link {
   align-self: flex-start;
   padding: 10px 14px;
   background: none;
@@ -279,7 +312,7 @@ list-item__link:active {
   border-radius: 4px;
 }
 
-.news-card__button:hover {
+.news-card__link:hover {
   background-color: rgba(var(--light-grey-color), 0.5);
 }
 
@@ -307,7 +340,7 @@ list-item__link:active {
   }
 }
 
-/* FOOTER */
+/* ------------------ FOOTER ------------- */
 .footer {
   margin-top: auto;
   width: 100%;
@@ -357,7 +390,7 @@ list-item__link:active {
   opacity: 0.6;
 }
 
-/* MOBILE FOOTER */
+/* ------------------ MOBILE FOOTER ------------- */
 @media screen and (max-width: 560px) {
   .footer {
     height: 200px;

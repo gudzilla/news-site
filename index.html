@@ -10,7 +10,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="resources/css/style.css" />
     <title>News Site</title>
   </head>
 
@@ -19,31 +19,70 @@
       <div class="header__content container">
         <a href="/index.html" class="header__logo logo">News Wave</a>
         <button class="navbar__mobile-menu-button mobile-menu-button" id="mobileMenuButton">
-          <span class="mobile-menu-button__bar mobile-menu-button__top-bar"></span>
-          <span class="mobile-menu-button__bar mobile-menu-button__mid-bar"></span>
-          <span class="mobile-menu-button__bar mobile-menu-button__bottom-bar"></span>
+          <span class="mobile-menu-button__bar"></span>
+          <span class="mobile-menu-button__bar"></span>
+          <span class="mobile-menu-button__bar"></span>
         </button>
         <nav class="header__navbar navbar" id="headerNav">
-          <ul class="navbar__list" id="navbarList">
-            <li class="navbar__list-item">
-              <a href="#" class="list-item__link">Business</a>
-            </li>
-            <li class="navbar__list-item">
-              <a href="#" class="list-item__link">Sports</a>
-            </li>
-            <li class="navbar__list-item">
-              <a href="#" class="list-item__link">Technology</a>
-            </li>
-            <li class="navbar__list-item">
-              <a href="#" class="list-item__link">Health</a>
-            </li>
-          </ul>
+          <div action="" class="category" id="chooseCategory">
+            <input id="general" type="radio" name="category" class="category__input" value="general" />
+            <label for="general" class="category__label">General</label>
+            <input id="sport" type="radio" name="category" class="category__input" value="sports" />
+            <label for="sport" class="category__label"> Sports </label>
+            <input type="radio" name="category" class="category__input" value="technology" id="technology" />
+            <label for="technology" class="category__label">Technology</label>
+            <input type="radio" name="category" class="category__input" id="science" value="science" />
+            <label for="science" class="category__label"> Science </label>
+            <input type="radio" name="category" class="category__input" value="health" id="health" />
+            <label for="health" class="category__label"> Health </label>
+            <input type="radio" name="category" class="category__input" value="business" id="business" />
+            <label for="business" class="category__label"> Business </label>
+            <input type="radio" name="category" class="category__input" value="entertainment" id="entertainment" />
+            <label for="entertainment" class="category__label"> Entertainment </label>
+          </div>
         </nav>
       </div>
     </header>
     <div class="main-content">
       <main class="main container main-news">
-        <h1 class="main-news__header">Top Headlines</h1>
+        <div class="main-news__news-info">
+          <h1 class="news-info__header">Top Headlines</h1>
+          <div class="news-info__choose-country">
+            <!-- <form action="" id="countryForm"> -->
+            <label for="selectCountry" class="choose-country__label">Country:</label>
+            <select id="selectCountry" name="news-country" form="countryForm" class="choose-country__select">
+              <option value="ar">Argentina</option>
+              <option value="au">Australia</option>
+              <option value="at">Austria</option>
+              <option value="be">Belgium</option>
+              <option value="br">Brazil</option>
+              <option value="bu">Bulgaria</option>
+              <option value="ca">Canada</option>
+              <option value="cn">China</option>
+              <option value="eg">Egypt</option>
+              <option value="fr">France</option>
+              <option value="de">Germany</option>
+              <option value="ie">Ireland</option>
+              <option value="it">Italy</option>
+              <option value="jp">Japan</option>
+              <option value="ma">Morocco</option>
+              <option value="nl">Netherlands</option>
+              <option value="ng">Nigeria</option>
+              <option value="no">Norway</option>
+              <option value="ro">Romania</option>
+              <option value="ru">Russia</option>
+              <option value="sa">Saudi Arabia</option>
+              <option value="kr">South Korea</option>
+              <option value="se">Sweden</option>
+              <option value="tr">Turkey</option>
+              <option value="ae">UAE</option>
+              <option value="ua">Ukraine</option>
+              <option value="gb">United Kingdom</option>
+              <option value="us" selected>United States</option>
+            </select>
+            <!-- </form> -->
+          </div>
+        </div>
         <div class="main-news__articles articles" id="mainNewsArticles"></div>
       </main>
     </div>
