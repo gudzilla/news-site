@@ -21,17 +21,17 @@ const filters = new FilterState();
 
 const articlesComponent = new ArticlesView(mainNewsArticles);
 
-filters.subscribe(async (state) => {
-  const response = await newsApi.getTopHeadlines({
-    country: state.country,
-    category: state.category,
-    page: 1,
-  });
-  const { articles } = response;
-  articlesComponent.render(articles.filter((article) => article.title !== "[Removed]" && article.url !== null));
-});
+// filters.subscribe(async (state) => {
+//   const response = await newsApi.getTopHeadlines({
+//     country: state.country,
+//     category: state.category,
+//     page: 1,
+//   });
+//   const { articles } = response;
+//   articlesComponent.render(articles.filter((article) => article.title !== "[Removed]" && article.url !== null));
+// });
 
-filters.initialize({ country: "gb", category: "general" });
+// filters.initialize({ country: "gb", category: "general" });
 
-new SelectCountryView({ value: filters.getState().country, onChange: filters.setCountry }).render();
-new SelectCategoryView({ value: filters.getState().category, onChange: filters.setCategory }).render();
+// new SelectCountryView({ value: filters.getState().country, onChange: filters.setCountry }).render();
+// new SelectCategoryView({ value: filters.getState().category, onChange: filters.setCategory }).render();

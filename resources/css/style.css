@@ -215,6 +215,119 @@ a {
   width: 100%;
 }
 
+/* ------ SEARCH FORM ----- */
+
+.news-filters {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.news-filters label {
+  margin-right: 6px;
+}
+
+.news-filter__item select {
+  all: unset;
+  /* -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none; */
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  padding: 0 8px;
+  width: auto;
+  font-size: 1rem;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.news-filter__item {
+  display: flex;
+  align-items: center;
+  margin-right: 32px;
+  margin-bottom: 12px;
+  height: 30px;
+}
+
+.news-filters__search {
+  width: 400px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+}
+
+.news-filter__item select:focus {
+  border: 2px solid var(--accent-color);
+}
+
+.search__input {
+  all: unset;
+  padding-left: 8px;
+  border-radius: 4px;
+  border: none;
+  flex: 1;
+  font-size: 1rem;
+  height: 100%;
+}
+
+.search__button {
+  all: unset;
+  height: 30px;
+  padding: 0 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  /* border-left: 1px solid var(--border-color); */
+  background: var(--border-color);
+}
+
+.search__button:hover {
+}
+
+.search__button:focus {
+  border: 2px solid var(--accent-color);
+}
+
+.search__button:active {
+  box-shadow: inset 1px 1px 1px 1px rgba(57, 57, 57, 0.527);
+}
+
+svg {
+  color: #321616;
+  fill: currentColor;
+  width: 20px;
+  height: 20px;
+}
+
+/* TRYING TO REMOVE CLEAR BUTTON OR STYLE IT IN SEARCH INPUT */
+input[type="search"]::-webkit-search-cancel-button {
+  color: red;
+  background-color: blue;
+  height: 100px;
+  width: 100px;
+}
+/* TRYING TO REMOVE CLEAR BUTTON OR STYLE IT IN SEARCH INPUT */
+.search__input::-webkit-search-cancel-button:after {
+  color: magenta;
+  color: red;
+  background-color: blue;
+  height: 100px;
+  width: 100px;
+}
+
+.news-filters__sort-by,
+.news-filters__language {
+  display: none;
+}
+
+.news-filters__choose-country {
+  width: auto;
+}
+
 .main-news__news-info {
   display: flex;
   justify-content: space-between;
@@ -234,19 +347,6 @@ a {
 
 .news-info__header {
   font-size: 1.625rem;
-}
-
-.choose-country__label {
-  font-size: 1.125rem;
-  margin-right: 4px;
-}
-
-.choose-country__select {
-  border-radius: 4px;
-  padding: 4px 6px;
-  border: none;
-  background: rgba(var(--border-color-base), 0.99);
-  font-size: 1.125rem;
 }
 
 .articles {
