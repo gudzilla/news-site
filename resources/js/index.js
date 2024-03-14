@@ -3,6 +3,7 @@ import { ArticlesView } from "./views/articlesView.js";
 import { FilterState } from "./state/filterState.js";
 import { SelectCountryView } from "./views/selectCountryView.js";
 import { SelectCategoryView } from "./views/selectCategoryView.js";
+import { SearchQueryView } from "./views/searchQueeryView.js";
 
 const menuButton = document.querySelector("#mobileMenuButton");
 const headerNav = document.querySelector("#headerNav");
@@ -21,17 +22,25 @@ const filters = new FilterState();
 
 const articlesComponent = new ArticlesView(mainNewsArticles);
 
-// filters.subscribe(async (state) => {
-//   const response = await newsApi.getTopHeadlines({
-//     country: state.country,
-//     category: state.category,
-//     page: 1,
-//   });
-//   const { articles } = response;
-//   articlesComponent.render(articles.filter((article) => article.title !== "[Removed]" && article.url !== null));
-// });
+filters.subscribe(async (state) => {
+  const response = await newsApi.getNews({
+    country: state.country,
+    category: state.category,
+    q: state.q,
+    sortBy: state.sortBy,
+    page: 1,
+  });
+  const { articles } = response;
+  articlesComponent.render(articles.filter((article) => article.title !== "[Removed]" && article.url !== null));
+});
 
-// filters.initialize({ country: "gb", category: "general" });
+filters.initialize({ country: "us", category: "general" });
 
-// new SelectCountryView({ value: filters.getState().country, onChange: filters.setCountry }).render();
-// new SelectCategoryView({ value: filters.getState().category, onChange: filters.setCategory }).render();
+new SelectCountryView({ value: filters.getState().country, onChange: filters.setCountry }).render();
+new SelectCategoryView({ value: filters.getState().category, onChange: filters.setCategory }).render();
+new SearchQueryView({
+  query: filters.getState().q,
+  onChangeQuery: filters.setQuery,
+  sortBy: filters.getState().sortBy,
+  onChangeSort: filters.setSortBy,
+}).render();

@@ -319,8 +319,7 @@ input[type="search"]::-webkit-search-cancel-button {
   width: 100px;
 }
 
-.news-filters__sort-by,
-.news-filters__language {
+.news-filters__sort-by_hidden {
   display: none;
 }
 

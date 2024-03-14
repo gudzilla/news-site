@@ -54,7 +54,6 @@ export class NewsApi extends BaseRequest {
    * @param {Object} params Parameters for news
    * @param {String} [params.country] Country to search news for
    * @param {String} params.category Category to search
-   * @param {String} [params.search] Query to search
    * @param {Number} [params.pageSize] Custom pageSize (default: 20)
    * @param {Number} [params.page] Page number
    * @returns {Promise<GetSearchResultResponse>}
@@ -78,38 +77,11 @@ export class NewsApi extends BaseRequest {
 
   /**
    * @async
-   * @param {Object} params Parameters for news-sources
-   * @param {String} params.category Possible options: business, entertainment, general, health, science, sports, technology
-   * @param {String} params.language Sources that display news in a specific language
-   * @param {String} params.country Sources that display news in a specific country
-   * @param {String} params.q Query to search
-   * @param {Number} params.pageSize Custom pageSize (default: 20)
-   * @returns {Promise<GetNewsSourcesResponse>}
-   */
-  async getNewsSources(params) {
-    const requestParams = {
-      params: {
-        apiKey: this.#API_KEY,
-        ...params,
-      },
-    };
-
-    const request = await this.get("/top-headlines/sources", requestParams);
-
-    return request.body;
-  }
-
-  /**q
-   * @async
    * @param {Object} params Parameters for news search
    * @param {String} params.q  Query to search
-   * @param {String} [params.searchIn]  Options: title, description, content
-   * @param {String} [params.sources]  Id of a news source
-   * @param {String} [params.language]  Language for news search
    * @param {String} [params.sortBy]  Options: relevancy, popularity, publishedAt
-   * @param {String} [params.from]  Time for the Oldest article allowed. (e.g. 2024-02-10 or 2024-02-10T15:42:50)
-   * @param {String} [params.to]  Time for the newest article allowed (e.g. 2024-02-10 or 2024-02-10T15:42:50)
    * @param {Number} [params.pageSize] Custom pageSize (default: 30)
+   * @param {Number} [params.page] Page number
    * @returns {Promise<GetSearchResultResponse>}
    */
   async getSearchResult(params) {
@@ -122,5 +94,19 @@ export class NewsApi extends BaseRequest {
 
     const request = await this.get("/everything", requestParams);
     return request.body;
+  }
+
+  async getNews(params) {
+    if (params.q !== "") {
+      return this.getSearchResult({
+        q: `"${params.q}"`,
+        sortBy: params.sortBy,
+      });
+    } else {
+      return this.getTopHeadlines({
+        category: params.category,
+        country: params.country,
+      });
+    }
   }
 }
