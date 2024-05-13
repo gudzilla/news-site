@@ -4,6 +4,7 @@ import { FilterState } from "./state/filterState.js";
 import { SelectCountryView } from "./views/selectCountryView.js";
 import { SelectCategoryView } from "./views/selectCategoryView.js";
 import { SearchQueryView } from "./views/searchQueeryView.js";
+import { Loader } from "./lib/loader.js";
 
 const menuButton = document.querySelector("#mobileMenuButton");
 const headerNav = document.querySelector("#headerNav");
@@ -22,7 +23,11 @@ const filters = new FilterState();
 
 const articlesComponent = new ArticlesView(mainNewsArticles);
 
+const loader = new Loader();
+
 filters.subscribe(async (state) => {
+  articlesComponent.clearRenderArea();
+  loader.show();
   const response = await newsApi.getNews({
     country: state.country,
     category: state.category,
@@ -30,6 +35,7 @@ filters.subscribe(async (state) => {
     sortBy: state.sortBy,
     page: 1,
   });
+  loader.hide();
   const { articles } = response;
   articlesComponent.render(articles.filter((article) => article.title !== "[Removed]" && article.url !== null));
 });

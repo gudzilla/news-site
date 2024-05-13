@@ -62,8 +62,12 @@ export class ArticlesView {
   render(articles) {
     const cards = articles.map(this.#createArticleCard);
     if (this.#renderArea?.innerHTML) {
-      this.#renderArea.innerHTML = "";
+      this.clearRenderArea();
     }
     this.#renderArea?.append(...cards);
+  }
+
+  clearRenderArea() {
+    this.#renderArea.innerHTML = "";
   }
 }

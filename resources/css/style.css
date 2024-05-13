@@ -273,7 +273,7 @@ a {
   height: 100%;
 }
 
-.search__button {
+.search__icon {
   all: unset;
   height: 30px;
   padding: 0 8px;
@@ -283,17 +283,6 @@ a {
   border-radius: 4px;
   /* border-left: 1px solid var(--border-color); */
   background: var(--border-color);
-}
-
-.search__button:hover {
-}
-
-.search__button:focus {
-  border: 2px solid var(--accent-color);
-}
-
-.search__button:active {
-  box-shadow: inset 1px 1px 1px 1px rgba(57, 57, 57, 0.527);
 }
 
 svg {
@@ -346,6 +335,74 @@ input[type="search"]::-webkit-search-cancel-button {
 
 .news-info__header {
   font-size: 1.625rem;
+}
+
+.main-news__loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 70px;
+  height: 70px;
+  margin: -100px 0 0 -45px;
+  border: 10px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 10px solid var(--accent-color);
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+.main-news__loader_notVisible {
+  display: none;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s;
+}
+
+@-webkit-keyframes animatebottom {
+  from {
+    bottom: -100px;
+    opacity: 0;
+  }
+  to {
+    bottom: 0px;
+    opacity: 1;
+  }
+}
+
+@keyframes animatebottom {
+  from {
+    bottom: -100px;
+    opacity: 0;
+  }
+  to {
+    bottom: 0;
+    opacity: 1;
+  }
 }
 
 .articles {
